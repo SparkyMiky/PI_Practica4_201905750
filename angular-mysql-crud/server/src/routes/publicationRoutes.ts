@@ -1,5 +1,7 @@
 import { Router } from 'express';
 
+import {publicationsController} from '../controllers/publicationsController';
+
 class PublicationRoutes{
 
     public router: Router = Router();
@@ -9,7 +11,11 @@ class PublicationRoutes{
     }
 
     config(): void{
-        this.router.get('/', (req, res) => res.send('Publications'));
+        this.router.get('/', publicationsController.list);
+        this.router.get('/:id',publicationsController.getOne);
+        this.router.post('/', publicationsController.create);
+        this.router.put('/:id', publicationsController.update);
+        this.router.delete('/:id',publicationsController.delete);
     }
 
 }
