@@ -29,8 +29,13 @@ class PublicationsController{
         res.json('Updating a publication')
     }
 
-    public delete(req: Request, res: Response){
-        res.json('Eliminando publicacion')
+    public async delete(req: Request, res: Response){
+        const { id } = req.params;
+        await pool.query('DELETE FROM  publications WHERE id = ?',[id], function(err, result, fields) {
+            if (err) throw err;
+            console.log(result);
+            res.json({text: 'Publication found'});
+        })
     }
 
 }

@@ -12,49 +12,52 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publicationsController = void 0;
-const database_1 = __importDefault(require("../database"));
-class PublicationsController {
+exports.usersController = void 0;
+const databaUsers_1 = __importDefault(require("../databaUsers"));
+class UsersController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('SELECT * FROM publications', function (err, result, fields) {
+            yield databaUsers_1.default.query('SELECT * FROM users', function (err, result, fields) {
                 if (err)
                     throw err;
+                console.log(result);
                 res.json(result);
             });
         });
     }
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            yield database_1.default.query('SELECT * FROM publications WHERE id = ?', [id], function (err, result, fields) {
+            const { carne } = req.params;
+            yield databaUsers_1.default.query('SELECT * FROM users WHERE carne = ?', [carne], function (err, result, fields) {
                 if (err)
                     throw err;
                 console.log(result);
-                res.json({ text: 'Publication found' });
+                res.json(result);
             });
         });
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO publications set ?', [req.body]); //Agrega los datos obtenidos en la tabla
-            res.json({ message: 'Publication created' });
+            yield databaUsers_1.default.query('INSERT INTO users set ?', [req.body]); //Agrega los datos obtenidos en la tabla
+            res.json({ message: 'User created' });
         });
     }
     update(req, res) {
-        res.json('Updating a publication');
-    }
-    delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            yield database_1.default.query('DELETE FROM  publications WHERE id = ?', [id], function (err, result, fields) {
+            const { carne } = req.params;
+            const { password } = req.body;
+            const { correo } = req.body;
+            yield databaUsers_1.default.query("UPDATE users SET password = ? WHERE carne = ? && correo = ? ", [password, carne, correo], function (err, result, fields) {
                 if (err)
                     throw err;
                 console.log(result);
-                res.json({ text: 'Publication found' });
+                res.json({ text: 'User updated' });
             });
         });
     }
+    delete(req, res) {
+        res.json('Eliminando user');
+    }
 }
-exports.publicationsController = new PublicationsController();
-exports.default = exports.publicationsController;
+exports.usersController = new UsersController();
+exports.default = exports.usersController;

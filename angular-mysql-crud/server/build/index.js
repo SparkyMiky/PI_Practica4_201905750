@@ -8,6 +8,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 const publicationRoutes_1 = __importDefault(require("./routes/publicationRoutes"));
+const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -23,6 +24,7 @@ class Server {
     }
     routes() {
         this.app.use(indexRoutes_1.default); // utiliza index
+        this.app.use('/api/login', userRoutes_1.default);
         this.app.use('/api/publications', publicationRoutes_1.default); //utiliza publications y se abre al utilzar la url
     }
     start() {

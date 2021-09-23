@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import indexRoutes from './routes/indexRoutes';
 import publicationRoutes from './routes/publicationRoutes';
+import userRoutes from './routes/userRoutes';
 
 
 
@@ -26,6 +27,7 @@ class Server{
 
     routes(): void{
         this.app.use(indexRoutes); // utiliza index
+        this.app.use('/api/login',userRoutes)
         this.app.use('/api/publications',publicationRoutes) //utiliza publications y se abre al utilzar la url
     }
 
