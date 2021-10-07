@@ -15,6 +15,7 @@ class UserRoutes{
         this.router.get('/:carne',usersController.getOne);
         this.router.post('/', usersController.create);
         this.router.put('/:carne', usersController.update);
+        this.router.put('/:carne/edit', usersController.updateUser);
         this.router.delete('/:carne',usersController.delete);
     }
 

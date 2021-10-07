@@ -5,6 +5,9 @@ import cors from 'cors';
 import indexRoutes from './routes/indexRoutes';
 import publicationRoutes from './routes/publicationRoutes';
 import userRoutes from './routes/userRoutes';
+import comentarioRoutes from './routes/comentarioRoutes';
+import cursoRoutes from './routes/cursoRoutes';
+import interRoutes from './routes/intermediaRoutes';
 
 
 
@@ -27,8 +30,11 @@ class Server{
 
     routes(): void{
         this.app.use(indexRoutes); // utiliza index
-        this.app.use('/api/login',userRoutes)
-        this.app.use('/api/publications',publicationRoutes) //utiliza publications y se abre al utilzar la url
+        this.app.use('/api/login',userRoutes);
+        this.app.use('/api/publications',publicationRoutes); //utiliza publications y se abre al utilzar la url
+        this.app.use('/api/users', comentarioRoutes);
+        this.app.use('/api/cursos', cursoRoutes);
+        this.app.use('/api/inter', interRoutes);
     }
 
     start(): void{

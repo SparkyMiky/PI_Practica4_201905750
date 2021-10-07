@@ -12,6 +12,7 @@ class UserRoutes {
         this.router.get('/:carne', usersController_1.usersController.getOne);
         this.router.post('/', usersController_1.usersController.create);
         this.router.put('/:carne', usersController_1.usersController.update);
+        this.router.put('/:carne/edit', usersController_1.usersController.updateUser);
         this.router.delete('/:carne', usersController_1.usersController.delete);
     }
 }
