@@ -9,6 +9,9 @@ const cors_1 = __importDefault(require("cors"));
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 const publicationRoutes_1 = __importDefault(require("./routes/publicationRoutes"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
+const comentarioRoutes_1 = __importDefault(require("./routes/comentarioRoutes"));
+const cursoRoutes_1 = __importDefault(require("./routes/cursoRoutes"));
+const intermediaRoutes_1 = __importDefault(require("./routes/intermediaRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -26,6 +29,9 @@ class Server {
         this.app.use(indexRoutes_1.default); // utiliza index
         this.app.use('/api/login', userRoutes_1.default);
         this.app.use('/api/publications', publicationRoutes_1.default); //utiliza publications y se abre al utilzar la url
+        this.app.use('/api/users', comentarioRoutes_1.default);
+        this.app.use('/api/cursos', cursoRoutes_1.default);
+        this.app.use('/api/inter', intermediaRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {

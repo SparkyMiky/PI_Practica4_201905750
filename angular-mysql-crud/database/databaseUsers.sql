@@ -1,6 +1,4 @@
-CREATE DATABASE ng_users_db;
-
-USE ng_users_db;
+USE ng_publications_db;
 
 CREATE TABLE users(
     id INT(9) AUTO_INCREMENT NOT NULL PRIMARY KEY,

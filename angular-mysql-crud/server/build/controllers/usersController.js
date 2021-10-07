@@ -13,11 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.usersController = void 0;
-const databaUsers_1 = __importDefault(require("../databaUsers"));
+const database_1 = __importDefault(require("../database"));
 class UsersController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield databaUsers_1.default.query('SELECT * FROM users', function (err, result, fields) {
+            yield database_1.default.query('SELECT * FROM users', function (err, result, fields) {
                 if (err)
                     throw err;
                 console.log(result);
@@ -28,7 +28,7 @@ class UsersController {
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { carne } = req.params;
-            yield databaUsers_1.default.query('SELECT * FROM users WHERE carne = ?', [carne], function (err, result, fields) {
+            yield database_1.default.query('SELECT * FROM users WHERE carne = ?', [carne], function (err, result, fields) {
                 if (err)
                     throw err;
                 console.log(result);
@@ -38,20 +38,36 @@ class UsersController {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield databaUsers_1.default.query('INSERT INTO users set ?', [req.body]); //Agrega los datos obtenidos en la tabla
+            yield database_1.default.query('INSERT INTO users set ?', [req.body]); //Agrega los datos obtenidos en la tabla
             res.json({ message: 'User created' });
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('utilizando solo 3 param');
             const { carne } = req.params;
             const { password } = req.body;
             const { correo } = req.body;
-            yield databaUsers_1.default.query("UPDATE users SET password = ? WHERE carne = ? && correo = ? ", [password, carne, correo], function (err, result, fields) {
+            yield database_1.default.query("UPDATE users SET password = ? WHERE carne = ? && correo = ? ", [password, carne, correo], function (err, result, fields) {
                 if (err)
                     throw err;
                 console.log(result);
                 res.json({ text: 'User updated' });
+            });
+        });
+    }
+    updateUser(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { carne } = req.params;
+            const { nombres } = req.body;
+            const { apellidos } = req.body;
+            const { password } = req.body;
+            const { correo } = req.body;
+            yield database_1.default.query("UPDATE users SET password = ?, nombres = ?, apellidos = ?, correo = ? WHERE carne = ? ", [password, nombres, apellidos, correo, carne], function (err, result, fields) {
+                if (err)
+                    throw err;
+                console.log(result);
+                res.json({ text: 'User updated option 2' });
             });
         });
     }

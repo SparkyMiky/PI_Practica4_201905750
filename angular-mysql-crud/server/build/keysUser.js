@@ -5,6 +5,6 @@ exports.default = {
         host: 'localhost',
         user: 'root',
         password: 'progra',
-        database: 'ng_users_db'
+        database: 'ng_publications_db' //cambiar a publications
     }
 };

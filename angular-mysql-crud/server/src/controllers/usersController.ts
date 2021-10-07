@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 
-import pool from '../databaUsers'
+import pool from '../database'
 
 class UsersController{
 
@@ -26,6 +26,7 @@ class UsersController{
     }
 
     public async update(req: Request, res:Response){
+        console.log('utilizando solo 3 param')
         const { carne } = req.params;
         const { password } = req.body;
         const { correo } = req.body;
@@ -33,6 +34,19 @@ class UsersController{
             if (err) throw err;
             console.log(result);
             res.json({text: 'User updated'});
+        });
+    }
+
+    public async updateUser(req: Request, res:Response){
+        const { carne } = req.params;
+        const { nombres } = req.body;
+        const { apellidos } = req.body;
+        const { password } = req.body;
+        const { correo } = req.body;
+        await pool.query("UPDATE users SET password = ?, nombres = ?, apellidos = ?, correo = ? WHERE carne = ? ",[password,nombres,apellidos,correo,carne],function(err, result, fields){
+            if (err) throw err;
+            console.log(result);
+            res.json({text: 'User updated option 2'});
         });
     }
 
